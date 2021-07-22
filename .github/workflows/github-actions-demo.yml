@@ -10,7 +10,7 @@ jobs:
         fetch-depth: 0
     - name: Generate new app
       run: |
-        cat seed_job.template
+        cat job.template
         BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
         echo $BRANCH
         sed  "s/%%BRANCH%%/${NEW_BRANCH}/g" job.template > seed-jobs/dev/$BRANCH.yaml
