@@ -2,8 +2,6 @@ name: GitHub Actions Demo
 on: [push]
 jobs:
   build:
-    env:
-      BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -12,11 +10,13 @@ jobs:
         fetch-depth: 0
     - name: Generate new app
       run: |
+        BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
         echo $GITHUB_REF
         echo $BRANCH
         sed  "s/%%BRANCH%%/${BRANCH}/g" job.template > seed-jobs/dev/${BRANCH}.yaml
     - name: Commit files
       run: |
+        BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
         git config --local user.email "test@example.com"
         git config --local user.name "github-actions[bot]"
         git add seed-jobs/dev/${BRANCH}.yaml
