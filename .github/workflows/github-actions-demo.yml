@@ -8,17 +8,16 @@ jobs:
       with:
         persist-credentials: false
         fetch-depth: 0
-    - name: Generate new app
+    - name: Get feature branch
       run: |
-        DEPLOY_BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
         echo "DEPLOY_BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)" >> $GITHUB_ENV
-        sed  "s/%%BRANCH%%/${DEPLOY_BRANCH}/g" job.template > seed-jobs/dev/${DEPLOY_BRANCH}.yaml
     - name: Checkout to seed-job branch
       uses: actions/checkout@v2
       with:
         ref: seed-job
-    - name: Commit files
+    - name: Generate and commit template
       run: |
+        sed  "s/%%BRANCH%%/${DEPLOY_BRANCH}/g" job.template > seed-jobs/dev/${DEPLOY_BRANCH}.yaml
         git config --local user.email "test@example.com"
         git config --local user.name "github-actions[bot]"
         git add seed-jobs/dev/${DEPLOY_BRANCH}.yaml
