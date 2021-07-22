@@ -10,7 +10,7 @@ jobs:
         fetch-depth: 0
     - name: Generate new app
       env:
-        - BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
+        BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
       run: |
         echo $GITHUB_REF
         echo $BRANCH
