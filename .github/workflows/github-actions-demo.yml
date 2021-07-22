@@ -13,13 +13,14 @@ jobs:
         echo $GITHUB_REF
         BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
         echo $BRANCH
-        sed  "s/%%BRANCH%%/${BRANCH}/g" job.template > seed-jobs/dev/$BRANCH.yaml
+        sed  "s/%%BRANCH%%/${BRANCH}/g" job.template > seed-jobs/dev/${BRANCH}.yaml
+        ls -la seed-jobs/dev
     - name: Commit files
       run: |
         git config --local user.email "test@example.com"
         git config --local user.name "github-actions[bot]"
-        git add seed-jobs/dev/$BRANCH.yaml
-        git commit -m "[skip ci] Add new $NEW_BRANCH application" -a
+        git add seed-jobs/dev/${BRANCH}.yaml
+        git commit -m "[skip ci] Add new ${BRANCH} application" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
