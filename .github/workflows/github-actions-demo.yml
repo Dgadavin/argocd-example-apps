@@ -9,12 +9,12 @@ jobs:
         persist-credentials: false
         fetch-depth: 0
     - name: Generate new app
+      env:
+        - BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
       run: |
         echo $GITHUB_REF
-        export BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
         echo $BRANCH
         sed  "s/%%BRANCH%%/${BRANCH}/g" job.template > seed-jobs/dev/${BRANCH}.yaml
-        echo "::set-env name=BRANCH::$BRANCH"
     - name: Commit files
       run: |
         git config --local user.email "test@example.com"
