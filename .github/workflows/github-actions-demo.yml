@@ -11,7 +11,7 @@ jobs:
     - name: Generate new app
       run: |
         echo $GITHUB_REF
-        BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
+        export BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
         echo $BRANCH
         sed  "s/%%BRANCH%%/${BRANCH}/g" job.template > seed-jobs/dev/${BRANCH}.yaml
         ls -la seed-jobs/dev
