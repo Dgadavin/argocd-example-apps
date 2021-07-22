@@ -13,10 +13,10 @@ jobs:
         DEPLOY_BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
         echo "DEPLOY_BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)" >> $GITHUB_ENV
         sed  "s/%%BRANCH%%/${DEPLOY_BRANCH}/g" job.template > seed-jobs/dev/${DEPLOY_BRANCH}.yaml
-  - name: Checkout to seed-job branch
-    uses: actions/checkout@v2
-    with:
-      ref: seed-job
+    - name: Checkout to seed-job branch
+      uses: actions/checkout@v2
+      with:
+        ref: seed-job
     - name: Commit files
       run: |
         git config --local user.email "test@example.com"
