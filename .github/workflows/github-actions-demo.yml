@@ -2,6 +2,8 @@ name: GitHub Actions Demo
 on: [push]
 jobs:
   build:
+    env:
+      BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -9,8 +11,6 @@ jobs:
         persist-credentials: false
         fetch-depth: 0
     - name: Generate new app
-      env:
-        BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
       run: |
         echo $GITHUB_REF
         echo $BRANCH
