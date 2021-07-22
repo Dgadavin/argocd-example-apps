@@ -13,8 +13,7 @@ jobs:
         echo $GITHUB_REF
         BRANCH=$(echo $GITHUB_REF | cut -d / -f 4)
         echo $BRANCH
-        touch seed-jobs/dev/$BRANCH.yaml
-        sed  "s/%%BRANCH%%/${BRANCH}/g" job.template > seed-jobs/dev/$BRANCH.yaml
+        sed  "s/%%BRANCH%%/${BRANCH}/g" job.template > ./seed-jobs/dev/$BRANCH.yaml
     - name: Commit files
       run: |
         git config --local user.email "test@example.com"
